@@ -1,13 +1,13 @@
 var player1 = "player X";
 var player2 = "player O";
-indexArray=[0,1,2,3,4,5,6,7,8];
+var indexArray=[0,1,2,3,4,5,6,7,8];
+var clickCount = 0;
 
-  $("header div").text("Player turn: "+player1)
+$("header div").text("Player turn: "+player1)
 
 $(".square").each(function (){
-  var clickCount = 0;
   $(this).on("click",function(){
-    if (clickCount === 0 ){
+    if (clickCount %2 === 0 ){
       indexArray[$(this).index()] = player1;
       $(this).css("background","green");
       $(this).append("<p>X</p>")
@@ -15,27 +15,30 @@ $(".square").each(function (){
       checkForWinner();
       $("header div").text("Player turn: "+player2)
 
-    } else if (clickCount === 1){
+    } else {
       indexArray[$(this).index()] = player2;
       $(this).css("background","purple");
       $(this, "p").html("<p>O</p>")
       clickCount++
       checkForWinner();
       $("header div").text("Player turn: "+player1)
-    } else {
-      indexArray[$(this).index()] = ""
-      $(this, "p").text(" ");
-      $(this).css("background","blue");
-      clickCount = 0;
     }
+    // else {
+    //   indexArray[$(this).index()] = ""
+    //   $(this, "p").text(" ");
+    //   $(this).css("background","blue");
+    //   clickCount = 0;
+    // }
   }
 )
-  $("button").on("click",function() {
-    $(".square").css("background","blue");
-    $(".square").html(" ");
-    clickCount = 0;
-    turnClick=0;
-  })
+$("button").on("click",function() {
+  $(".square").css("background","blue");
+  $(".square").html(" ");
+  clickCount = 0;
+  turnClick=0;
+  indexArray=[0,1,2,3,4,5,6,7,8];
+  $(".win").remove();
+})
 })
 
 $("button").eq(0).on("click", function () {
